@@ -1,15 +1,33 @@
-import { Stack } from 'expo-router';
-import { Text, View } from 'react-native';
+import { router, Stack, useFocusEffect } from 'expo-router';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
-function Login() {
+function SplashScreen() {
+    const onFocused = ()=>{
+        router.replace('/login');
+    }
+    useFocusEffect(onFocused);
+    
 
     return (
-        <View>
-            <Stack.Screen options={{title: "Login"}} />
-            <Text>Login page</Text>
+        <View style={styles.wrapper}>
+            <Stack.Screen options={{headerShown: false}} />
+            <Text style={styles.title}>Dummy Quiz</Text>
+            <ActivityIndicator size='small' />
         </View>
     );
 
 }
 
-export default Login
+const styles = StyleSheet.create({
+    wrapper: {
+        flex:1, 
+        alignItems: 'center', 
+        justifyContent: 'center'
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 12
+    }
+});
+export default SplashScreen
