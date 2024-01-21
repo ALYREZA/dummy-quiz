@@ -1,9 +1,20 @@
 import { router, Stack, useFocusEffect } from 'expo-router';
+import { getItemAsync } from 'expo-secure-store';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
+async function getValueFor(key) {
+    return await getItemAsync(key);
+  }
+
 function SplashScreen() {
-    const onFocused = ()=>{
-        router.replace('/login');
+    const onFocused = () => {
+        getValueFor("Token").then((res) => {
+            if(res){
+                router.replace('/list');
+            }else {
+                router.replace('/login');
+            }
+        })
     }
     useFocusEffect(onFocused);
     
